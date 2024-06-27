@@ -29,6 +29,18 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# HTMLを操作する https://nokogiri.org/index.html
+gem 'nokogiri'
+
+# HTTPのリクセストをする(APIを叩くため) https://github.com/jnunemaker/httparty
+gem 'httparty'
+
+# .envを使用するため https://github.com/bkeepers/dotenv
+gem 'dotenv-rails', groups: [:development, :test]
+
+# 失敗したコード ブロックを再試行する  https://github.com/kamui/retriable
+gem 'retriable'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
