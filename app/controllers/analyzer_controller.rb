@@ -1,4 +1,4 @@
-require 'retriable'
+# require 'retriable'
 
 class AnalyzerController < ApplicationController
   SES_COMPANIES = ENV['SES_COMPANIES'].to_s.split(',').map(&:strip).freeze
@@ -14,6 +14,8 @@ class AnalyzerController < ApplicationController
     content = fetch_content(url)
     result, keyword_counts, matched_company = analyze_content(content)
     log_analysis_result(url, keyword_counts, matched_company)
+    # デバッグ用にログに出力
+    Rails.logger.info "Analysis result: #{result}, Matched company: #{matched_company}, Keyword counts: #{keyword_counts}"
     render json: { result: result, matched_company: matched_company, keyword_counts: keyword_counts }
   rescue SocketError => e
     handle_network_error(e)
@@ -63,10 +65,13 @@ class AnalyzerController < ApplicationController
     ].sample
   end
 
+  # 診断するメソッド
   def analyze_content(content)
     text_content = content.text.downcase
+    # デバッグ用 最初の500文字をログに出力
+    Rails.logger.debug "Analyzing content: #{text_content.slice(0, 500)}..." 
     matched_company = SES_COMPANIES.find { |company| text_content.include?(company.downcase) }
-    
+    # カンパニーにマッチした場合
     return ["SES企業である確率が98%以上です", {}, matched_company] if matched_company
 
     keyword_counts = count_keywords(text_content)
@@ -76,10 +81,12 @@ class AnalyzerController < ApplicationController
     [result, keyword_counts, nil]
   end
 
+  # キーワードのカウント
   def count_keywords(text_content)
     KEYWORDS.each_with_object({}) do |keyword, counts|
       count = text_content.scan(/\b#{Regexp.escape(keyword.downcase)}\b/).count
-      counts[keyword] = count if count.positive?
+      # ログに出力するために保存
+      counts[keyword] = count
     end
   end
 
@@ -93,23 +100,27 @@ class AnalyzerController < ApplicationController
     end
   end
 
+  # デバッグ用にログを出力する
   def log_analysis_result(url, keyword_counts, matched_company)
     log_message = "URL: #{url}\n"
     if matched_company
       log_message += "Matched SES Company: #{matched_company}\n"
     else
+      log_message += "Keyword Counts:\n"
       keyword_counts.each { |keyword, count| log_message += "#{keyword}: #{count}\n" }
       log_message += "Total Score: #{keyword_counts.values.sum}\n"
     end
     Rails.logger.info(log_message)
   end
 
+  # ネットワークエラーを処理する
   def handle_network_error(error)
     error_message = "ネットワークエラー: URLに接続できませんでした。インターネット接続を確認し、再試行してください。"
     Rails.logger.error "#{error_message} 詳細: #{error.message}"
     render json: { error: error_message }, status: :service_unavailable
   end
 
+  # 一般的なエラーを処理する
   def handle_general_error(error)
     error_message = "URLの解析中にエラーが発生しました: #{error.message}"
     Rails.logger.error "Error analyzing URL: #{error_message}\n#{error.backtrace.join("\n")}"
