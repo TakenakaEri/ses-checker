@@ -1,26 +1,67 @@
-<h1>SES企業診断アプリ</h1>
-<form id="analyzer-form">
-  <input type="text" id="url-input" placeholder="求人サイトのURLを入力">
-  <button type="submit">分析</button>
-</form>
-<div id="result"></div>
+<div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+  <div class="relative py-3 sm:max-w-xl sm:mx-auto">
+    <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-light-blue-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+    <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+      <div class="max-w-md mx-auto">
+        <div>
+          <h1 class="text-2xl font-semibold text-center">SES企業診断ツール</h1>
+        </div>
+        <div class="divide-y divide-gray-200">
+          <div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+            <p>求人サイトのURLを入力して、SES企業かどうかを診断します。</p>
+            <form id="analyzer-form" class="space-y-4">
+              <div>
+                <label for="url-input" class="block text-sm font-medium text-gray-700">求人サイトのURL</label>
+                <div class="mt-1">
+                  <input type="text" id="url-input" name="url" required class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="https://example.com/job-posting">
+                </div>
+              </div>
+              <div>
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  分析する
+                </button>
+              </div>
+            </form>
+          </div>
+          <div id="permanent-result" class="hidden pt-6 text-base leading-6 sm:text-lg sm:leading-7">
+            <h2 class="text-xl font-semibold mb-2">診断結果</h2>
+            <p id="permanent-result-content" class="text-gray-700 mb-4 text-center"></p>
+            <!--ログインについてセクション-->
+            <div class="flex justify-center items-center space-x-3 text-gray-700 mb-4 mt-10" role="alert">
+              <svg class="w-6 h-6 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <div>
+                <p class="font-medium text-gray-700">ログインしてSESについてもっと知る</p>
+              </div>
+            </div>
+            <div class="flex justify-center items-center">
+              <a href="/login" class="inline-block bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm">
+                ログイン機能実装中(まだできてないヨ)
+              </a>
+            </div>
+          </div>
+          <div id="loading" class="hidden pt-6">
+            <div class="flex justify-center items-center">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+              <span class="ml-2">分析中...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<script>
-document.getElementById('analyzer-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var url = document.getElementById('url-input').value;
-  
-  fetch('/analyze', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-    },
-    body: JSON.stringify({ url: url })
-  })
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById('result').innerText = data.result;
-  });
-});
-</script>
+<!-- モーダル -->
+<div id="result-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden flex items-center justify-center" aria-hidden="true">
+  <div class="relative p-5 border w-11/12 max-w-md shadow-lg rounded-md bg-white">
+    <div class="mt-3 text-center">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">分析結果</h3>
+      <div class="mt-2 px-7 py-3">
+        <p id="modal-result-content" class="text-sm text-gray-500"></p>
+      </div>
+    </div>
+  </div>
+</div>
+

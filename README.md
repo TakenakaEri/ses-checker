@@ -34,15 +34,15 @@ SES企業に対する解像度を高めることで、自分がどのような�
 ### MVPリリース
 - テキスト分析機能
     - 使用するgem
-        nokogiri
-        httparty
+        - nokogiri
+        - httparty
 
 ### 本リリース
 - ログイン機能
 - SES度チェックリスト（SESを見分けるポイント）
 - 求人や面接で見るべきポイント集
     - 使用するgem
-        device
+        - device
 
 
 ### 機能の実装方針予定
