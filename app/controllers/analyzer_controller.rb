@@ -17,10 +17,10 @@ class AnalyzerController < ApplicationController
     # デバッグ用にログに出力
     Rails.logger.info "Analysis result: #{result}, Matched company: #{matched_company}, Keyword counts: #{keyword_counts}"
     render json: { result: result, matched_company: matched_company, keyword_counts: keyword_counts }
-  rescue SocketError => e
-    handle_network_error(e)
-  rescue => e
-    handle_general_error(e)
+    rescue SocketError => e
+      handle_network_error(e)
+    rescue => e
+      handle_general_error(e)
   end
 
   private
