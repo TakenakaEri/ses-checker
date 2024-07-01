@@ -41,6 +41,16 @@ gem 'dotenv-rails', groups: [:development, :test]
 # 失敗したコード ブロックを再試行する  https://github.com/kamui/retriable
 gem 'retriable'
 
+# google認証をするためのgem
+# https://github.com/heartcombo/devise
+gem 'devise'
+# https://github.com/omniauth/omniauth
+gem 'omniauth'
+# https://github.com/zquestz/omniauth-google-oauth2
+gem 'omniauth-google-oauth2'
+# https://github.com/cookpad/omniauth-rails_csrf_protection
+gem 'omniauth-rails_csrf_protection'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

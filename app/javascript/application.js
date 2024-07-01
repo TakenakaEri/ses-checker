@@ -5,38 +5,24 @@ import "./controllers"
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('analyzer-form');
     const loadingDiv = document.getElementById('loading');
+    const resultSection = document.getElementById('result-section');
+    const permanentResultContent = document.getElementById('permanent-result-content');
     const modal = document.getElementById('result-modal');
     const modalContent = document.getElementById('modal-result-content');
-    const permanentResult = document.getElementById('permanent-result');
-    const permanentResultContent = document.getElementById('permanent-result-content');
-  
-    function showModal(content) {
-      modalContent.textContent = content;
-      modal.classList.remove('hidden');
-      
-      // 5秒後にモーダルを閉じる
-      setTimeout(() => {
-        closeModal();
-        showPermanentResult(content);
-      }, 3000);
-    }
-  
-    function closeModal() {
-      modal.classList.add('hidden');
-    }
-  
+
     function showPermanentResult(content) {
       permanentResultContent.textContent = content;
-      permanentResult.classList.remove('hidden');
+      resultSection.classList.remove('hidden');
     }
-  
+
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       const url = document.getElementById('url-input').value;
-      
+
+      resultSection.classList.add('hidden');
       loadingDiv.classList.remove('hidden');
-      permanentResult.classList.add('hidden');
-      
+
+    //   非同期HTTPリクエスト
       fetch('/analyze', {
         method: 'POST',
         headers: {
@@ -55,7 +41,24 @@ document.addEventListener('DOMContentLoaded', function() {
         showModal(`エラーが発生しました: ${error.message}`);
       });
     });
-  
+
+    // モーダルを表示する
+    function showModal(content) {
+        modalContent.textContent = content;
+        modal.classList.remove('hidden');
+
+        // 5秒後にモーダルを閉じる
+        setTimeout(() => {
+            closeModal();
+            showPermanentResult(content);
+        }, 3000);
+    }
+
+    // モーダルを閉じる
+    function closeModal() {
+        modal.classList.add('hidden');
+    }
+
     // モーダルの外側をクリックしたときにモーダルを閉じる
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
@@ -63,4 +66,4 @@ document.addEventListener('DOMContentLoaded', function() {
         showPermanentResult(modalContent.textContent);
       }
     });
-  });
+});
