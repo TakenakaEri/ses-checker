@@ -51,6 +51,9 @@ gem 'omniauth-google-oauth2'
 # https://github.com/cookpad/omniauth-rails_csrf_protection
 gem 'omniauth-rails_csrf_protection'
 
+#アイコン https://github.com/Angelmmiguel/material_icons
+gem 'material_icons'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

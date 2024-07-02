@@ -1,0 +1,16 @@
+<!--診断フォームパーシャル-->
+<section>
+  <h2 class="text-2xl font-semibold mb-4">SES企業診断</h2>
+  <%= form_with(url: analyze_path, method: :post, local: true, class: "space-y-4") do |f| %>
+    <div>
+      <%= f.label :url, '求人情報URL', class: "block text-sm font-medium text-gray-700" %>
+      <%= f.url_field :url, required: true, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    </div>
+    <%= f.submit '分析する', class: "w-full px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+  <% end %>
+</section>
+
+<section id="result" class="mt-8 hidden">
+  <h2 class="text-2xl font-semibold mb-4">診断結果</h2>
+  <p id="result-content" class="text-lg"></p>
+</section>

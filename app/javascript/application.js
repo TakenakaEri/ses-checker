@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             closeModal();
             showPermanentResult(content);
-        }, 3000);
+        }, 2000);
     }
 
     // モーダルを閉じる
