@@ -4,7 +4,7 @@ class Users::OmniauthCallbacksController < ApplicationController
 
         if @user.persisted?
           sign_in_and_redirect @user, event: :authentication
-          flash[:notice] = "Successfully authenticated from Google account."
+          flash[:notice] = "会員ページにログインしました"
         #   set_flash_message!(:notice, :success, kind: "Google") if is_navigational_format?
         else
           session["devise.google_data"] = request.env["omniauth.auth"].except(:extra)
@@ -16,7 +16,9 @@ class Users::OmniauthCallbacksController < ApplicationController
         redirect_to root_path
     end
     
-    # def passthru
-    #     render file: "#{Rails.root}/public/404.html", status: 404, layout: false
-    # end
+    protected
+
+    def after_sign_in_path_for(resource)
+      members_path
+    end
 end

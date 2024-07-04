@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       resultSection.classList.remove('hidden');
     }
 
+if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       const url = document.getElementById('url-input').value;
@@ -41,7 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
         showModal(`エラーが発生しました: ${error.message}`);
       });
     });
-
+}
+if (modal) {
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+            showPermanentResult(modalContent.textContent);
+        }
+    });
+}
     // モーダルを表示する
     function showModal(content) {
         modalContent.textContent = content;
@@ -67,3 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 });
+
+// フラッシュメッセージを一定時間で消す
+window.setTimeout(() => {
+    $(".notice").fadeOut();
+}, 2000);

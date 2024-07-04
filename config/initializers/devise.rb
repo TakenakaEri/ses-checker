@@ -316,5 +316,6 @@ Devise.setup do |config|
     scope: 'email,profile',
     prompt: 'select_account'
   }
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
 
 end

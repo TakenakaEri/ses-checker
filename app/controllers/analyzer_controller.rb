@@ -1,5 +1,3 @@
-# require 'retriable'
-
 class AnalyzerController < ApplicationController
   SES_COMPANIES = ENV['SES_COMPANIES'].to_s.split(',').map(&:strip).freeze
   KEYWORDS = ENV['KEYWORDS'].to_s.split(',').map(&:strip).freeze
@@ -54,7 +52,7 @@ class AnalyzerController < ApplicationController
       follow_redirects: true
     }
   end
-
+  # ブロック回避
   def random_user_agent
     [
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
