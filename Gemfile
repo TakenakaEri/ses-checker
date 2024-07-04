@@ -54,6 +54,13 @@ gem 'omniauth-rails_csrf_protection'
 #アイコン https://github.com/Angelmmiguel/material_icons
 gem 'material_icons'
 
+# 日本語化
+gem 'rails-i18n'
+gem 'devise-i18n'
+
+# フラッシュメッセージを時間指定で消す
+gem "jquery-rails"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
