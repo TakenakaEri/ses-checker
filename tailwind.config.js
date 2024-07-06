@@ -18,6 +18,7 @@ module.exports = {
           'cyan': '#00E0FF',
           'blue': {
             light: '#01B7E0',
+            lightmiddle: '#0298dd',
             middle: '#0365B9',
             dark: '#124468',
           },
