@@ -1,8 +1,8 @@
 <!--ログインとログアウトボタン-->
 <div class="ml-8">
     <% if user_signed_in? %>
-    <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" do %>
-        <span class="material-icons text-red-600 mr-2">logout</span>
+    <%= button_to destroy_user_session_path, method: :delete, data: { turbo: false }, class: "flex items-center justify-center px-4 py-1 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" do %>
+        <span class="material-icons text-ses-blue-lightmiddle mr-2">logout</span>
         Sign Out
     <% end %>
     <% else %>
