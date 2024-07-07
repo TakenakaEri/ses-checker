@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   # Deviseとオムニオース用のルート
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
+  # 診断用のPOSTルート
+  post '/analyze', to: 'analyzer#analyze'
+  get '/users/auth/google_oauth2/callback', to: 'users/omniauth_callbacks#google_oauth2'
+
   # 会員ページのルート
   authenticate :user do
     get 'members', to: 'members#index'
@@ -17,21 +21,17 @@ Rails.application.routes.draw do
     get 'members/interview_points', to: 'members#interview_points'
     get 'members/submit_tip', to: 'members#submit_tip'
     post 'members/submit_tip', to: 'members#create_tip'
+    get 'mypage', to: 'mypage#index'
+    get 'mypage/history', to: 'mypage#history'
   end
-
-  # 診断用のPOSTルート
-  post '/analyze', to: 'analyzer#analyze'
-  get '/users/auth/google_oauth2/callback', to: 'users/omniauth_callbacks#google_oauth2'
 
   # クイズ用のルート
   get 'quiz', to: 'quizzes#show'
-
 
   # Railsのヘルスチェック用ルート
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
   # root "posts#index"
-
 
 end

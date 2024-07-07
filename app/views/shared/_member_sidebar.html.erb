@@ -9,22 +9,34 @@
     <li>
       <%= link_to members_ses_points_path, class: "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded #{current_page?(members_ses_points_path) ? 'bg-gray-100' : ''}" do %>
         <span class="material-icons mr-2">search</span>
-        SESを見分けるポイント
+        SESを見分けるポイント（実装中）
       <% end %>
     </li>
     <li>
       <%= link_to members_interview_points_path, class: "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded #{current_page?(members_interview_points_path) ? 'bg-gray-100' : ''}" do %>
         <span class="material-icons mr-2">person</span>
-        面接で確認するポイント
+        面接で確認するポイント（実装中）
       <% end %>
     </li>
-    <!--
     <li>
-      <%= link_to members_submit_tip_path, class: "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded #{current_page?(members_submit_tip_path) ? 'bg-gray-100' : ''}" do %>
+      <%= link_to members_path, class: "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded #{current_page?(members_submit_tip_path) ? 'bg-gray-100' : ''}" do %>
         <span class="material-icons mr-2">feedback</span>
-        タレコミフォーム
+        タレコミフォーム（実装中：遷移しません）
       <% end %>
     </li>
-    -->
+    <li>
+      <%= link_to mypage_path, class: "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded #{current_page?(mypage_path) ? 'bg-gray-100' : ''}" do %>
+        <span class="material-icons mr-2">account_circle</span>
+        マイページ
+      <% end %>
+    </li>
+
+    <li>
+      <%= link_to mypage_history_path, class: "flex items-center p-2 text-gray-700 hover:bg-gray-100 rounded #{current_page?(mypage_history_path) ? 'bg-gray-100' : ''}" do %>
+        <span class="material-icons mr-2">history</span>
+        分析履歴
+      <% end %>
+    </li>
+
   </ul>
 </nav>

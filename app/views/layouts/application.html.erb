@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= javascript_include_tag 'https://code.jquery.com/jquery-3.5.0.min.js' %>
   </head>
+
   <body class="flex flex-col min-h-screen bg-gray-100">
   <!--ヘッダダー-->
     <%= render 'shared/header' %>
@@ -18,7 +19,7 @@
      <div class="flash-message <%= message_type %>"><%= message %></div>
    <% end %>
    <!--メイン-->
-    <main class="flex-grow">
+    <main class="flex-grow bg-white">
     <%= yield %>
     </main>
     <!--フッター-->
