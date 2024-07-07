@@ -12,13 +12,25 @@ class AnalyzerController < ApplicationController
     content = fetch_content(url)
     result, keyword_counts, matched_company = analyze_content(content)
     log_analysis_result(url, keyword_counts, matched_company)
+  
     # デバッグ用にログに出力
     Rails.logger.info "Analysis result: #{result}, Matched company: #{matched_company}, Keyword counts: #{keyword_counts}"
+  
+    # ログインユーザーの場合、分析結果を保存
+    if user_signed_in?
+      analysis_result = {
+        result: result,
+        matched_company: matched_company,
+        keyword_counts: keyword_counts
+      }
+      current_user.analyses.create(url: url, result: analysis_result.to_json)
+    end
+  
     render json: { result: result, matched_company: matched_company, keyword_counts: keyword_counts }
-    rescue SocketError => e
-      handle_network_error(e)
-    rescue => e
-      handle_general_error(e)
+  rescue SocketError => e
+    handle_network_error(e)
+  rescue => e
+    handle_general_error(e)
   end
 
   private

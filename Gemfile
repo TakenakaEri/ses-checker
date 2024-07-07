@@ -61,6 +61,9 @@ gem 'devise-i18n'
 # フラッシュメッセージを時間指定で消す
 gem "jquery-rails"
 
+# ページネーション https://github.com/kaminari/kaminari
+gem 'kaminari'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
