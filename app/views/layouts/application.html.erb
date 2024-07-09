@@ -9,6 +9,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= javascript_include_tag 'https://code.jquery.com/jquery-3.5.0.min.js' %>
+    <%= favicon_link_tag('favicon.ico') %>
   </head>
 
   <body class="flex flex-col min-h-screen bg-gray-100">
@@ -19,8 +20,8 @@
      <div class="flash-message <%= message_type %>"><%= message %></div>
    <% end %>
    <!--メイン-->
-    <main class="flex-grow bg-white">
-    <%= yield %>
+    <main class="flex-grow bg-white pt-16 sm:pt-20">
+      <%= yield %>
     </main>
     <!--フッター-->
     <%= render 'shared/footer' %>
