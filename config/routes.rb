@@ -26,7 +26,9 @@ Rails.application.routes.draw do
   end
 
   # クイズ用のルート
-  get 'quiz', to: 'quizzes#show'
+  get 'ses_quiz', to: 'quizzes#show'
+  post 'ses_quiz', to: 'quizzes#submit'
+
 
   # Railsのヘルスチェック用ルート
   get "up" => "rails/health#show", as: :rails_health_check

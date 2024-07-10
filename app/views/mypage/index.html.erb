@@ -21,7 +21,7 @@
           </li>
         <% end %>
       </ul>
-      <%= link_to '全ての履歴を見る', mypage_history_path, class: 'mt-4 inline-block text-blue-600 hover:text-blue-800' %>
+      <%= link_to '全ての履歴を見る', mypage_history_path, data: { turbo: false } , class: 'mt-4 inline-block text-blue-600 hover:text-blue-800' %>
     <% else %>
       <p>まだ分析履歴がありません。</p>
     <% end %>
