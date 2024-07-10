@@ -22,7 +22,7 @@
             <tr>
             <!--URL-->
               <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 hover:text-blue-800">
-                <%= link_to truncate(analysis.url, length: 50), analysis.url, target: '_blank' %>
+                <%= link_to truncate(analysis.url, length: 50), analysis.url, data: { turbo: false } , target: '_blank' %>
               </td>
             <!--結果-->
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

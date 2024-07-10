@@ -2,7 +2,7 @@
   <div class="bg-gradient-to-r from-ses-cyan to-blue-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center">
-        <%= link_to root_path, class: "flex items-center" do %>
+        <%= link_to root_path, data: { turbo: false } , class: "flex items-center" do %>
           <%= image_tag 'logo_webp.webp', alt: "SESチェッカーロゴ", class: "h-10 w-auto" %>
         <% end %>
       </div>

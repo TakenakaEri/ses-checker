@@ -1,4 +1,3 @@
-// Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
 import "./controllers"
 
@@ -77,7 +76,27 @@ if (modal) {
     });
 });
 
-// フラッシュメッセージを一定時間で消す
-window.setTimeout(() => {
-    $(".notice").fadeOut();
-}, 2000);
+// クラスのflash-messageに対してフェードアウト効果を適用する
+document.addEventListener('turbo:load', () => {
+  const flashMessages = document.querySelectorAll('.flash-message');
+  
+  flashMessages.forEach((flashMessage) => {
+    // フラッシュメッセージを5秒後に非表示にする
+    setTimeout(() => {
+      fadeOut(flashMessage);
+    }, 2000);
+  });
+});
+
+// フェードアウト効果を適用する関数
+function fadeOut(element) {
+  let opacity = 1;
+  const timer = setInterval(() => {
+    if (opacity <= 0.1) {
+      clearInterval(timer);
+      element.style.display = 'none';
+    }
+    element.style.opacity = opacity;
+    opacity -= opacity * 0.1;
+  }, 50);
+}
