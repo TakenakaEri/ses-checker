@@ -9,8 +9,8 @@ class QuizzesController < ApplicationController
       # params[:answers]がnilまたは空の場合はエラーメッセージを表示して処理を中断
       if params[:answers].blank?
         flash[:alert] = "回答が提出されていません。"
-        redirect_to ses_quiz_path # 適切なパスにリダイレクト
-        return # メソッドから抜ける
+        redirect_to ses_quiz_path
+        return
       end
     
       @score = 0
