@@ -34,7 +34,7 @@ if (form) {
       .then(response => response.json())
       .then(data => {
         loadingDiv.classList.add('hidden');
-        showModal(`診断結果: ${data.result}`);
+        showModal(`分析結果: ${data.result}`);
       })
       .catch(error => {
         loadingDiv.classList.add('hidden');
