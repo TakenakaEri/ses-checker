@@ -1,4 +1,4 @@
-import "@hotwired/turbo-rails"
+// Entry point for the build script in your package.json
 import "./controllers"
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
       resultSection.classList.remove('hidden');
     }
 
-if (form) {
+  if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       const url = document.getElementById('url-input').value;
@@ -22,7 +22,7 @@ if (form) {
       resultSection.classList.add('hidden');
       loadingDiv.classList.remove('hidden');
 
-    //   非同期HTTPリクエスト
+      //  非同期HTTPリクエスト
       fetch('/analyze', {
         method: 'POST',
         headers: {
@@ -41,51 +41,49 @@ if (form) {
         showModal(`エラーが発生しました: ${error.message}`);
       });
     });
-}
-if (modal) {
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
-            showPermanentResult(modalContent.textContent);
-        }
-    });
-}
-    // モーダルを表示する
-    function showModal(content) {
-        modalContent.textContent = content;
-        modal.classList.remove('hidden');
+  }
+  if (modal) {
+      modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+              closeModal();
+              showPermanentResult(modalContent.textContent);
+          }
+      });
+  }
+  // モーダルを表示する
+  function showModal(content) {
+      modalContent.textContent = content;
+      modal.classList.remove('hidden');
 
-        // 5秒後にモーダルを閉じる
-        setTimeout(() => {
-            closeModal();
-            showPermanentResult(content);
-        }, 2000);
+      // 5秒後にモーダルを閉じる
+      setTimeout(() => {
+          closeModal();
+          showPermanentResult(content);
+      }, 2000);
+  }
+
+  // モーダルを閉じる
+  function closeModal() {
+      modal.classList.add('hidden');
+  }
+
+  // モーダルの外側をクリックしたときにモーダルを閉じる
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeModal();
+      showPermanentResult(modalContent.textContent);
     }
-
-    // モーダルを閉じる
-    function closeModal() {
-        modal.classList.add('hidden');
-    }
-
-    // モーダルの外側をクリックしたときにモーダルを閉じる
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        closeModal();
-        showPermanentResult(modalContent.textContent);
-      }
-    });
+  });
 });
 
 // クラスのflash-messageに対してフェードアウト効果を適用する
-document.addEventListener('turbo:load', () => {
-  const flashMessages = document.querySelectorAll('.flash-message');
-  
-  flashMessages.forEach((flashMessage) => {
-    // フラッシュメッセージを5秒後に非表示にする
-    setTimeout(() => {
-      fadeOut(flashMessage);
-    }, 2000);
-  });
+const flashMessages = document.querySelectorAll('.flash-message');
+
+flashMessages.forEach((flashMessage) => {
+  // フラッシュメッセージを5秒後に非表示にする
+  setTimeout(() => {
+    fadeOut(flashMessage);
+  }, 2000);
 });
 
 // フェードアウト効果を適用する関数
@@ -100,3 +98,5 @@ function fadeOut(element) {
     opacity -= opacity * 0.1;
   }, 50);
 }
+
+
