@@ -11,7 +11,7 @@
   <%= form_with url: ses_quiz_path, method: :post, local: true, class: "space-y-8" do |f| %>
     <% @questions.each_with_index do |question, index| %>
       <div class="bg-white shadow-md rounded-lg p-6">
-        <h2 class="text-xl font-semibold mb-4">質問 <%= index + 1 %>: <%= question.content %></h2>
+        <h2 class=" mb-4">質問 <%= index + 1 %>： <%= question.content %></h2>
         <div class="space-x-4">
           <%= f.radio_button "answers[#{question.id}]", true, class: "mr-2" %>
           <%= f.label "answers[#{question.id}]_true", "はい", class: "mr-4" %>
