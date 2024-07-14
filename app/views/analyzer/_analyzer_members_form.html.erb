@@ -46,15 +46,15 @@
     </div>
   </div>
 
-
+        <!-- 分析履歴 -->
+        <div class="mt-8 grid gap-6 md:grid-cols-2">
         <!-- SESに騙されやすい度診断機能 -->
         <div class="bg-gray-50 rounded-lg p-4">
           <h3 class="text-lg font-semibold text-gray-800 mb-2">あなたは騙されやすい！？SESクイズ</h3>
           <p class="text-gray-600">SESの基本的なクイズに挑戦して、悪徳SES企業に騙されやすいかをチェックしよう！</p>
           <%= link_to 'SESに騙されやすい診断を実施する→', ses_quiz_path, data: { turbo: false } , class:'mt-2 inline-flex items-center text-ses-blue-light hover:text-ses-blue' %>
         </div>
-        <!-- 分析機能 -->
-        <div class="mt-8 grid gap-6 md:grid-cols-2">
+
           <div class="bg-gray-50 rounded-lg p-4">
               <h3 class="text-lg font-semibold text-gray-800 mb-2">分析履歴</h3>
               <p class="text-gray-600">過去の分析結果を確認できます。</p>
