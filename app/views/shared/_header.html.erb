@@ -2,11 +2,11 @@
   <div class="bg-gradient-to-r from-ses-cyan to-blue-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center">
-        <!--ログインしている場合かどうかで条件分岐-->
+        <!--ログインしている場合かどうかでロゴのリンクを条件分岐-->
         <%= link_to user_signed_in? ? members_path : root_path, data: { turbo: false }, class: "flex items-center" do %>
-          <%= image_tag 'logo_webp.webp', alt: "SESチェッカーロゴ", class: "h-10 w-auto" %>
+          <%= image_tag 'logo.webp', alt: "SESチェッカーロゴ", class: "h-10 w-auto" %>
         <% end %>
-      
+
       </div>
     <nav class="m-4  flex justify-end space-x-4">
       <!--ログインログアウトボタン-->

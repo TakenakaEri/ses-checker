@@ -317,5 +317,4 @@ Devise.setup do |config|
     prompt: 'select_account'
   }
   config.navigational_formats = ['*/*', :html, :turbo_stream]
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAnalyses < ActiveRecord::Migration[7.1]
   def change
     create_table :analyses do |t|
