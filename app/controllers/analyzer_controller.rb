@@ -1,48 +1,37 @@
+# frozen_string_literal: true
+
+# AnalyzerControllerは、ウェブページのURLを受け取り、その内容を分析して、分析結果を保存します
 class AnalyzerController < ApplicationController
   SES_COMPANIES = ENV['SES_COMPANIES'].to_s.split(',').map(&:strip).freeze
   KEYWORDS = ENV['KEYWORDS'].to_s.split(',').map(&:strip).freeze
   HIGH_PROBABILITY_THRESHOLD = ENV['HIGH_PROBABILITY_THRESHOLD'].to_i
   MEDIUM_PROBABILITY_THRESHOLD = ENV['MEDIUM_PROBABILITY_THRESHOLD'].to_i
 
-  def index
-  end
+  def index; end
 
   def analyze
     url = params[:url]
     content = fetch_content(url)
     result, keyword_counts, matched_company = analyze_content(content)
     log_analysis_result(url, keyword_counts, matched_company)
-  
-    # デバッグ用にログに出力
-    Rails.logger.info "Analysis result: #{result}, Matched company: #{matched_company}, Keyword counts: #{keyword_counts}"
-  
+
     # ログインユーザーの場合、分析結果を保存
-    if user_signed_in?
-      analysis_result = {
-        result: result,
-        matched_company: matched_company,
-        keyword_counts: keyword_counts
-      }
-      current_user.analyses.create(url: url, result: analysis_result.to_json)
-    end
-  
-    render json: { result: result, matched_company: matched_company, keyword_counts: keyword_counts }
+    save_analysis_result(url, result, keyword_counts, matched_company) if user_signed_in?
+
+    render json: { result:, matched_company:, keyword_counts: }
   rescue SocketError => e
-    handle_network_error(e)
-  rescue => e
-    handle_general_error(e)
+    handle_error(e, 'ネットワークエラー: URLに接続できませんでした。インターネット接続を確認し、再試行してください。', :service_unavailable)
+  rescue StandardError => e
+    handle_error(e, "URLの解析中にエラーが発生しました: #{e.message}", :unprocessable_entity)
   end
 
   private
 
   def fetch_content(url)
-    Rails.logger.info "Attempting to fetch content from URL: #{url}"
-    
-    response = Retriable.retriable(tries: 3, base_interval: 1) do
-      HTTParty.get(url, request_options)
-    end
+    log_message("Attempting to fetch content from URL: #{url}")
+    response = Retriable.retriable(tries: 3, base_interval: 1) { HTTParty.get(url, request_options) }
+    log_message("Response received. Status code: #{response.code}")
 
-    Rails.logger.info "Response received. Status code: #{response.code}"
     raise "HTTPリクエストエラー: ステータスコード #{response.code}" unless response.success?
 
     Nokogiri::HTML(response.body)
@@ -51,19 +40,26 @@ class AnalyzerController < ApplicationController
   def request_options
     {
       timeout: 30,
+      # rubocop:disable Naming/VariableNumber
       ssl_version: :TLSv1_2,
+      # rubocop:enable Naming/VariableNumber
       verify: !Rails.env.development?,
-      headers: {
-        'User-Agent' => random_user_agent,
-        'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language' => 'en-US,en;q=0.5',
-        'Accept-Encoding' => 'gzip, deflate, br',
-        'Connection' => 'keep-alive',
-        'Upgrade-Insecure-Requests' => '1'
-      },
+      headers: default_headers,
       follow_redirects: true
     }
   end
+
+  def default_headers
+    {
+      'User-Agent' => random_user_agent,
+      'Accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+      'Accept-Language' => 'en-US,en;q=0.5',
+      'Accept-Encoding' => 'gzip, deflate, br',
+      'Connection' => 'keep-alive',
+      'Upgrade-Insecure-Requests' => '1'
+    }
+  end
+
   # ブロック回避
   def random_user_agent
     [
@@ -79,10 +75,11 @@ class AnalyzerController < ApplicationController
   def analyze_content(content)
     text_content = content.text.downcase
     # デバッグ用 最初の500文字をログに出力
-    Rails.logger.debug "Analyzing content: #{text_content.slice(0, 500)}..." 
+    log_message("Analyzing content: #{text_content.slice(0, 500)}...")
+
     matched_company = SES_COMPANIES.find { |company| text_content.include?(company.downcase) }
     # カンパニーにマッチした場合
-    return ["SES企業である確率が98%以上です", {}, matched_company] if matched_company
+    return ['SES企業である確率が98%以上です', {}, matched_company] if matched_company
 
     keyword_counts = count_keywords(text_content)
     score = keyword_counts.values.sum
@@ -102,15 +99,14 @@ class AnalyzerController < ApplicationController
 
   def determine_result(score)
     if score > HIGH_PROBABILITY_THRESHOLD
-      "高い確率でSES企業です"
+      '高い確率でSES企業です'
     elsif score > MEDIUM_PROBABILITY_THRESHOLD
-      "SES企業の可能性があります"
+      'SES企業の可能性があります'
     else
-      "SES企業である可能性は低いです"
+      'SES企業である可能性は低いです'
     end
   end
 
-  # デバッグ用にログを出力する
   def log_analysis_result(url, keyword_counts, matched_company)
     log_message = "URL: #{url}\n"
     if matched_company
@@ -123,17 +119,19 @@ class AnalyzerController < ApplicationController
     Rails.logger.info(log_message)
   end
 
-  # ネットワークエラーを処理する
-  def handle_network_error(error)
-    error_message = "ネットワークエラー: URLに接続できませんでした。インターネット接続を確認し、再試行してください。"
-    Rails.logger.error "#{error_message} 詳細: #{error.message}"
-    render json: { error: error_message }, status: :service_unavailable
+  def save_analysis_result(url, result, keyword_counts, matched_company)
+    analysis_result = { result:, matched_company:, keyword_counts: }
+    current_user.analyses.create(url:, result: analysis_result.to_json)
   end
 
-  # 一般的なエラーを処理する
-  def handle_general_error(error)
-    error_message = "URLの解析中にエラーが発生しました: #{error.message}"
-    Rails.logger.error "Error analyzing URL: #{error_message}\n#{error.backtrace.join("\n")}"
-    render json: { error: error_message }, status: :unprocessable_entity
+  # エラー処理
+  def handle_error(error, message, status)
+    Rails.logger.error "#{message} 詳細: #{error.message}"
+    render json: { error: message }, status:
+  end
+
+  # エラーログ
+  def log_message(message)
+    Rails.logger.info(message)
   end
 end
