@@ -23,4 +23,5 @@ module Users
       members_path
     end
   end
+  
 end
