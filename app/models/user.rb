@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
   has_many :analyses, dependent: :destroy
   # Include default devise modules. Others available are:
@@ -13,9 +11,12 @@ class User < ApplicationRecord
     user = User.where(email: data['email']).first
 
     # ユーザーが存在しない場合は作成します
-    user ||= User.create(name: data['name'],
-                         email: data['email'],
-                         password: Devise.friendly_token[0, 20])
+    unless user
+        user = User.create(name: data['name'],
+            email: data['email'],
+            password: Devise.friendly_token[0,20]
+        )
+    end
     user
   end
 end

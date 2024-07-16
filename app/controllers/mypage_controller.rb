@@ -1,9 +1,6 @@
-# frozen_string_literal: true
-
-# マイページに関するコントローラー
 class MypageController < ApplicationController
   before_action :authenticate_user!
-
+  
   def index
     # マイページのダッシュボード
     @recent_analyses = current_user.analyses.order(created_at: :desc).limit(5)
