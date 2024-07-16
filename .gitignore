@@ -44,4 +44,3 @@
 /vendor/bundle
 .env
 /Makefile
-.rubocop.yml
