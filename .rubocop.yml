@@ -1,3 +1,8 @@
+# 標準の規約＋Rails固有の規約を有効にする
+Rails:
+  Enabled: true
+
+# 特定のLintチェックをオフにする
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/Documentation:
