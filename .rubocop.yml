@@ -1,6 +1,6 @@
 # 標準の規約＋Rails固有の規約を有効にする
-Rails:
-  Enabled: true
+require:
+  - rubocop-rails
 
 # 特定のLintチェックをオフにする
 Style/FrozenStringLiteralComment:
@@ -12,6 +12,7 @@ Layout/LineLength:
 
 #以下にはrubocopで検証したくないフォルダを指定
 AllCops:
+  TargetRubyVersion: 3.2
   Exclude:
     - 'db/**/*'
     - 'bin/*'
@@ -21,5 +22,3 @@ AllCops:
     - 'config/spring.rb'
     - 'lib/tasks/*'
     - 'vendor/**/*'
-    - 'path/ruby'
-    - 'app/controllers/users/omniauth_callbacks_controller.rb'
