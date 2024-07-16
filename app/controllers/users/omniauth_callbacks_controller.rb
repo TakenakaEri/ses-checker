@@ -1,4 +1,5 @@
-class Users::OmniauthCallbacksController < ApplicationController
+module Users
+  class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def google_oauth2
         @user = User.from_omniauth(request.env["omniauth.auth"])
 
@@ -21,4 +22,5 @@ class Users::OmniauthCallbacksController < ApplicationController
     def after_sign_in_path_for(resource)
       members_path
     end
+  end
 end
