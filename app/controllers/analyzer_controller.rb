@@ -79,7 +79,7 @@ class AnalyzerController < ApplicationController
   def analyze_content(content)
     text_content = content.text.downcase
     # デバッグ用 最初の500文字をログに出力
-    Rails.logger.debug "Analyzing content: #{text_content.slice(0, 500)}..." 
+    Rails.logger.debug "Analyzing content: #{text_content.slice(0, 500)}..."
     matched_company = SES_COMPANIES.find { |company| text_content.include?(company.downcase) }
     # カンパニーにマッチした場合
     return ["SES企業である確率が98%以上です", {}, matched_company] if matched_company
