@@ -1,5 +1,9 @@
 // Entry point for the build script in your package.json
+
 import "./controllers"
+
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('analyzer-form');
@@ -97,6 +101,13 @@ function fadeOut(element) {
     element.style.opacity = opacity;
     opacity -= opacity * 0.1;
   }, 50);
+
 }
 
+// パーティクル用の設定
+if (typeof particlesJS !== 'undefined') {
+  particlesJS.load('particles-js', '/particles.json', function() {
+    console.log('particles.js loaded - callback');
+  });
+}
 
