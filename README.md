@@ -67,4 +67,5 @@ SES 企業に対する解像度を高めることで、自分がどのような�
 - RubyOnRails
 - HTML
 - JavaScript
+ - partical.js
 - Tailwind css
