@@ -38,4 +38,7 @@ Rails.application.routes.draw do
 
   # 口コミのルート
   get 'reviews', to: 'reviews#index'
+
+  # 利用規約のルート
+  get 'rules', to: 'rules#index'
 end
