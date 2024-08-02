@@ -36,4 +36,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  # 口コミのルート
+  get 'reviews', to: 'reviews#index'
 end
