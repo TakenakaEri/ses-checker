@@ -6,7 +6,8 @@ class AnalyzerController < ApplicationController
 
   def index
   end
-
+	
+	# SESかどうかの診断ーーーーーーーーーー
   def analyze
     url = params[:url]
     content = fetch_content(url)
@@ -35,6 +36,7 @@ class AnalyzerController < ApplicationController
 
   private
 
+	#コンテンツの取得ーーーーーーーーーー
   def fetch_content(url)
     Rails.logger.info "Attempting to fetch content from URL: #{url}"
     
@@ -47,7 +49,8 @@ class AnalyzerController < ApplicationController
 
     Nokogiri::HTML(response.body)
   end
-
+  
+	# リクエスト・オプション-----------------
   def request_options
     {
       timeout: 30,
@@ -64,7 +67,8 @@ class AnalyzerController < ApplicationController
       follow_redirects: true
     }
   end
-  # ブロック回避
+  
+  # ブロック回避--------------
   def random_user_agent
     [
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -75,7 +79,7 @@ class AnalyzerController < ApplicationController
     ].sample
   end
 
-  # 診断するメソッド
+  # 診断するメソッド--------------------
   def analyze_content(content)
     text_content = content.text.downcase
     # デバッグ用 最初の500文字をログに出力
@@ -91,15 +95,16 @@ class AnalyzerController < ApplicationController
     [result, keyword_counts, nil]
   end
 
-  # キーワードのカウント
+  # キーワードのカウント-----------------
   def count_keywords(text_content)
     KEYWORDS.each_with_object({}) do |keyword, counts|
-      count = text_content.scan(/\b#{Regexp.escape(keyword.downcase)}\b/).count
+      count = text_content.scan(/#{Regexp.escape(keyword.downcase)}/).count
       # ログに出力するために保存
       counts[keyword] = count
     end
   end
-
+  
+	# 判定結果-----------------
   def determine_result(score)
     if score > HIGH_PROBABILITY_THRESHOLD
       "高い確率でSES企業です"
@@ -110,7 +115,7 @@ class AnalyzerController < ApplicationController
     end
   end
 
-  # デバッグ用にログを出力する
+  # デバッグ用にログを出力する--------------
   def log_analysis_result(url, keyword_counts, matched_company)
     log_message = "URL: #{url}\n"
     if matched_company
@@ -123,14 +128,14 @@ class AnalyzerController < ApplicationController
     Rails.logger.info(log_message)
   end
 
-  # ネットワークエラーを処理する
+  # ネットワークエラーを処理する--------------
   def handle_network_error(error)
     error_message = "ネットワークエラー: URLに接続できませんでした。インターネット接続を確認し、再試行してください。"
     Rails.logger.error "#{error_message} 詳細: #{error.message}"
     render json: { error: error_message }, status: :service_unavailable
   end
 
-  # 一般的なエラーを処理する
+  # 一般的なエラーを処理する---------
   def handle_general_error(error)
     error_message = "URLの解析中にエラーが発生しました: #{error.message}"
     Rails.logger.error "Error analyzing URL: #{error_message}\n#{error.backtrace.join("\n")}"
