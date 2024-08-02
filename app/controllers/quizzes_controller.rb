@@ -12,7 +12,7 @@ class QuizzesController < ApplicationController
         redirect_to ses_quiz_path
         return
       end
-    
+
       @score = 0
       answers = params.require(:answers).permit!.to_h
       @total = answers.count
@@ -23,7 +23,7 @@ class QuizzesController < ApplicationController
         end
       end
       @percentage = @total.zero? ? 0 : (@score.to_f / @total * 100).round(2)
-      
+
       render :result
     end
 end

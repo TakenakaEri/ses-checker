@@ -82,6 +82,9 @@ gem "bootsnap", require: false
 # https://github.com/wentaoliu/particles-js-rails
 gem 'particles-js-rails'
 
+#アタック回数に合わせて例外処理を行うgem https://github.com/nfedyashev/retryable
+gem 'retryable'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
