@@ -1,0 +1,32 @@
+<!--
+<h1>Reviews#index</h1>
+<p>Find me in app/views/reviews/index.html.erb</p>
+-->
+
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">SES企業口コミフォーム</h1>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <p class="text-gray-700 mb-4">
+            SES業界の透明性向上のため、皆様のご協力をお願いいたします。<br>
+            以下のリンクから、匿名でSES企業に関する口コミを投稿することができます。
+        </p>
+
+        <p class="text-gray-700 mb-6">
+            皆様の実体験は、”エンジニアとして仕事がしたい！”と思っている求職者の適切な選択に役立ちます。<br>
+            是非、あなたの声をお聞かせください。
+        </p>
+
+        <%= link_to '口コミフォームに進む',
+                    'https://docs.google.com/forms/d/e/1FAIpQLSeWJiPd-w5Ioruk3y4FrSrVsvam-6EK_qSwIdkhsYONWT9m3Q/viewform',
+                    class: 'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-ses-blue-light hover:bg-ses-blue transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ses-blue-light',
+                    target: '_blank',
+                    rel: 'noopener noreferrer' %>
+
+        <p class="text-sm text-gray-600 mt-6">
+            ※ フォームは外部サイト（Google Forms）で開きます。<br>
+            ※ SES失敗談にご協力いただける方には、連絡先をお伺いする項目がございますが、SNSアカウントでのDMなどでご連絡させていただきたいと考えております。<br>
+            ※ 個人情報保護方針に従って、個人情報を特定できる内容はできるだけ避けてご記載くださいませ。
+        </p>
+    </div>
+</div>
