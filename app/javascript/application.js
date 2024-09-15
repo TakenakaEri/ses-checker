@@ -111,3 +111,4 @@ if (typeof particlesJS !== 'undefined') {
   });
 }
 
+import "./channels"
