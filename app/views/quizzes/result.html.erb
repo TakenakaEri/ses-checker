@@ -1,0 +1,22 @@
+<!--騙されやすい診断結果表示画面-->
+<!--正解すると点数がプラスされて高得点になる→騙されにくい判定-->
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">チェック結果</h1>
+  
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <p class="text-2xl font-semibold mb-4">あなたのスコア: <%= @score %>/<%= @total %> (<%= @percentage %>%)</p>
+    
+    <% if @percentage >= 80 %>
+      <p class="text-green-600">おめでとうございます！SESの特徴をよく理解しています。騙されにくい状態です。</p>
+        <p>あなたにおすすめの記事を表示する予定（準備中）</p>
+    <% elsif @percentage >= 60 %>
+      <p class="text-yellow-600">まずまずの結果です。SESについてもう少し学習すると、より安全にキャリアを選択できるでしょう。</p>
+        <p>あなたにおすすめの記事を表示する予定（準備中）</p>
+    <% else %>
+      <p class="text-red-600">SESについてもっと学ぶ必要があります。騙されやすい状態なので、求人を見る際は十分注意しましょう。</p>
+        <p>あなたにおすすめの記事を表示する予定（準備中）</p>
+    <% end %>
+  </div>
+  
+  <%= link_to "もう一度チャレンジ", ses_quiz_path, data: { turbo: false } ,class: "mt-6 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" %>
+</div>
