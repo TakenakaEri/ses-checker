@@ -12,7 +12,7 @@
                     <label for="url-input" class="block text-sm font-medium text-gray-700">求人サイトの求人詳細情報が書いてあるURLを入力してね↓</label>
                     <div class="mt-1 relative rounded-md shadow-sm">
                         <input type="url" id="url-input" name="url" required
-                                class="focus:ring-ses-blue-light focus:border-ses-blue-light block w-full pr-10 sm:text-sm border-gray-300 rounded-md"
+                                class="focus:ring-ses-blue-light focus:border-ses-blue-light block w-full h-8 pr-10 mt-3 sm:text-sm border-gray-300 rounded-md"
                                 placeholder="https://example.com/job-posting">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
@@ -52,13 +52,13 @@
         <div class="bg-gray-50 rounded-lg p-4">
           <h3 class="text-lg font-semibold text-gray-800 mb-2">あなたは騙されやすい！？SESクイズ</h3>
           <p class="text-gray-600">SESの基本的なクイズに挑戦して、悪徳SES企業に騙されやすいかをチェックしよう！</p>
-          <%= link_to 'SESに騙されやすい診断を実施する→', ses_quiz_path, data: { turbo: false } , class:'mt-2 inline-flex items-center text-ses-blue-light hover:text-ses-blue' %>
+          <%= link_to 'SESに騙されやすい診断を実施する→', ses_quiz_path, data: { turbo: false } , class:'mt-4 inline-flex items-center text-ses-blue-light hover:text-ses-blue' %>
         </div>
 
           <div class="bg-gray-50 rounded-lg p-4">
               <h3 class="text-lg font-semibold text-gray-800 mb-2">分析履歴</h3>
               <p class="text-gray-600">過去の分析結果を確認できます。</p>
-              <%= link_to '履歴を見る→', mypage_history_path, data: { turbo: false } , class:'mt-2 inline-flex items-center text-ses-blue-light hover:text-ses-blue' %>
+              <%= link_to '履歴を見る→', mypage_history_path, data: { turbo: false } , class:'mt-4 inline-flex items-center text-ses-blue-light hover:text-ses-blue' %>
           </div>
         </div>
     </div>
