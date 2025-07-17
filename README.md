@@ -4,6 +4,7 @@
 
 ## サービス概要
 求人情報のURLをフォームに入力するだけで、SES企業 かどうかを診断するサービスです。
+[![Image from Gyazo](https://i.gyazo.com/14695a90cf194b641677ea7aae7b83f6.gif)](https://gyazo.com/14695a90cf194b641677ea7aae7b83f6)
 
 ## このサービスへの思い・作りたい理由
 「SES 企業は見抜くのが難しい」
