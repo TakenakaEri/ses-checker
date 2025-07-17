@@ -1,5 +1,5 @@
 ## SES チェッカー
-![Uploading スクリーンショット 2024-09-18 1.59.38.png…]()
+<img width="1245" height="727" alt="Image" src="https://github.com/user-attachments/assets/1ae8e4a1-a31b-4a4d-acf4-276a942cff77" />
 
 
 ## サービス概要
