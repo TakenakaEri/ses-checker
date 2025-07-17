@@ -27,24 +27,18 @@ SES 企業に対する解像度を高めることで、自分がどのような�
 現状、SES 企業の見分け方と言うサイトは沢山見つかるのですが、アプリは見つけられていないので差別化はできてきると思っているのですが、その中でも、ログインした後に SES 企業の分析を行うことができるのが推しポイントかなと思っています。
 
 ## 機能候補
-### MVP リリース
 - SES診断機能
-  - 使用する gem
-    - nokogiri
-    - httparty
-
-### 本リリース
-- ログイン・ログアウト機能
+- Googleログイン機能
 - ページネーション機能
 - 履歴閲覧機能
-- faviconのアップロード機能
-- SES に騙されやすい度診断
-  - 使用する gem
-    - device
-    - material_icons
-    - omniauth-google-oauth2
-    - httparty
-    - kaminari
+- 使用する gem
+  - nokogiri
+  - httparty
+  - device
+  - material_icons
+  - omniauth-google-oauth2
+  - httparty
+  - kaminari
 
 ### 使用技術
 - RubyOnRails
